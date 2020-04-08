@@ -6,6 +6,7 @@ module.exports = router => {
         .post(CountriesController.create);
     router.route('/:id')
         .put(CountriesController.save)
-        .delete(CountriesController.delete);
+        .delete(CountriesController.delete)
+        .get(CountriesController.getOne);
     return router;
 };

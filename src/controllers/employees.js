@@ -1,14 +1,14 @@
-const {Instrument} = include('models');
+const {Employe} = include('models');
 
-class InstrumentsController {
+class EmployeesController {
     static async fetch(req, res, next) {
         try {
-            const instruments = await Instrument.find(req.query);
-            const total = await Instrument.countDocuments();
+            const employees = await Employe.find(req.query);
+            const total = await Employe.countDocuments();
             console.log(total);
             res.send({
-                instruments,
-                total: 129,
+                employees,
+                total: 101,
                 limit: process.env.PAGE_SIZE
             });
         } catch(err) {
@@ -18,7 +18,7 @@ class InstrumentsController {
 
     static async create(req, res, next) { //post -- crear
         try {
-            const result = await Instrument.insertOne(req.body);
+            const result = await Employe.insertOne(req.body);
             res.send({
                 success: true,
                 result
@@ -32,7 +32,7 @@ class InstrumentsController {
         try {
             //const result = await Car.findAndUpdate(req.params.id, req.body);
             // Actualiza si encuentra el elemento (sino lo crea)
-            const result = await Instrument.updateOne({id: req.params.id}, req.body);
+            const result = await Employe.updateOne({id: req.params.id}, req.body);
             res.send({
                 success: true,
                 result
@@ -44,12 +44,12 @@ class InstrumentsController {
 
     static async delete(req, res, next) { //post -- crear
         try {
-            const result = await Instrument.deletedOne(req.params.id);
+            const result = await Employe.deletedOne(req.params.id);
 
             console.log(result);
 
             if(!result){
-                res.status(404).send({code: 'INSTRUMENT_NOT_FOUND'});
+                res.status(404).send({code: 'EMPLOYE_NOT_FOUND'});
             }
 
             res.send({
@@ -60,6 +60,15 @@ class InstrumentsController {
             next(err);
         }
     }
+
+    static async getOne(req, res, next) {
+        try {
+            const [employe] = await Employe.findById(req.params.id);
+            res.send({ employe });
+        } catch (err) {
+            next(err);
+        }
+    }
 }
 
-module.exports = InstrumentsController;
+module.exports = EmployeesController;

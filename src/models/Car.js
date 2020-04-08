@@ -2,13 +2,14 @@ const toNumber = require('lodash/toNumber');
 const {PAGE_SIZE} = process.env;
 const createModel = include('helpers/modelCreate');
 
-const name = 'Country';
-const tableName = 'country';
+const name = 'Car';
+const tableName = 'car';
 
 const selectableProps = [
-    'name',
-    'code',
-    'iso2',
+    'id',
+    'brand',
+    'model',
+    'year',
     'deleted',
     'createdAt',
     'updatedAt',
@@ -16,7 +17,7 @@ const selectableProps = [
     '__v'
 ];
 
-class CountryModel extends createModel {
+class CarModel extends createModel {
     constructor(props) {
         super({
             ...props,
@@ -29,13 +30,11 @@ class CountryModel extends createModel {
     find({
         skip, filter = {}
     }) {
-        const results = this.knex.select()
+        return this.knex.select()
             .from(this.tableName)
             .where(filter)
             .limit(PAGE_SIZE).offset(toNumber(PAGE_SIZE) * toNumber(skip));
-
-        return results;
     }
 }
 
-module.exports = knex => new CountryModel({knex});
+module.exports = knex => new CarModel({knex});

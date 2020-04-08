@@ -1,14 +1,14 @@
-const {Country} = include('models');
+const {Instrument} = include('models');
 
-class CountriesController {
+class InstrumentsController {
     static async fetch(req, res, next) {
         try {
-            const countries = await Country.find(req.query);
-            const total = await Country.countDocuments();
+            const instruments = await Instrument.find(req.query);
+            const total = await Instrument.countDocuments();
             console.log(total);
             res.send({
-                countries,
-                total: total,
+                instruments,
+                total: 129,
                 limit: process.env.PAGE_SIZE
             });
         } catch(err) {
@@ -18,7 +18,7 @@ class CountriesController {
 
     static async create(req, res, next) { //post -- crear
         try {
-            const result = await Country.insertOne(req.body);
+            const result = await Instrument.insertOne(req.body);
             res.send({
                 success: true,
                 result
@@ -32,7 +32,7 @@ class CountriesController {
         try {
             //const result = await Car.findAndUpdate(req.params.id, req.body);
             // Actualiza si encuentra el elemento (sino lo crea)
-            const result = await Country.updateOne({id: req.params.id}, req.body);
+            const result = await Instrument.updateOne({id: req.params.id}, req.body);
             res.send({
                 success: true,
                 result
@@ -44,12 +44,12 @@ class CountriesController {
 
     static async delete(req, res, next) { //post -- crear
         try {
-            const result = await Country.deletedOne(req.params.id);
+            const result = await Instrument.deletedOne(req.params.id);
 
             console.log(result);
 
             if(!result){
-                res.status(404).send({code: 'CONTRIE_NOT_FOUND'});
+                res.status(404).send({code: 'INSTRUMENT_NOT_FOUND'});
             }
 
             res.send({
@@ -60,6 +60,15 @@ class CountriesController {
             next(err);
         }
     }
+
+    static async getOne(req, res, next) {
+        try {
+            const [instrument] = await Instrument.findById(req.params.id);
+            res.send({ instrument });
+        } catch (err) {
+            next(err);
+        }
+    }
 }
 
-module.exports = CountriesController;
+module.exports = InstrumentsController;

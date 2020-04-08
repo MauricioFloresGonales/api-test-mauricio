@@ -1,4 +1,4 @@
-const {Car} = include('models');
+const { Car } = include('models');
 
 class CarsController {
     static async fetch(req, res, next) {
@@ -12,7 +12,7 @@ class CarsController {
                 total: 122,
                 limit: process.env.PAGE_SIZE
             });
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }
@@ -24,7 +24,7 @@ class CarsController {
                 success: true,
                 result
             });
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }
@@ -33,12 +33,12 @@ class CarsController {
         try {
             //const result = await Car.findAndUpdate(req.params.id, req.body);
             // Actualiza si encuentra el elemento (sino lo crea)
-            const result = await Car.updateOne({id: req.params.id}, req.body);
+            const result = await Car.updateOne({ id: req.params.id }, req.body);
             res.send({
                 success: true,
                 result
             });
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }
@@ -49,15 +49,24 @@ class CarsController {
 
             console.log(result);
 
-            if(!result){
-                res.status(404).send({code: 'CAR_NOT_FOUND'});
+            if (!result) {
+                res.status(404).send({ code: 'CAR_NOT_FOUND' });
             }
 
             res.send({
                 success: true,
                 result
             });
-        } catch(err) {
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    static async getOne(req, res, next) {
+        try {
+            const [car] = await Car.findById(req.params.id);
+            res.send({ car });
+        } catch (err) {
             next(err);
         }
     }

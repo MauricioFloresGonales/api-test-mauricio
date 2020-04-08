@@ -194,7 +194,7 @@ class ModelCreate {
         return this.knex.update({
             deleted: true,
             deletedAt: new Date()
-        }).from(this.tableName).where({id}).timeout(this.timeout);//******* CONSULTAR PORQUE SI LO MANDO EN EL CONTROLLER CON {id:params.id} TENGO QUE PONER EL ID SIN {} ACA */
+        }).from(this.tableName).where({id}).timeout(this.timeout);//* CONSULTAR PORQUE SI LO MANDO EN EL CONTROLLER CON {id:params.id} TENGO QUE PONER EL ID SIN {} ACA */
     }
 
     deletedMany (ids) {
