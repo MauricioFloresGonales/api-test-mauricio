@@ -40,58 +40,51 @@ module.exports = {
         }
     },
 
-    '/api/countries/'{id}: {
+    '/api/countries/{id}': {
         put: {
             security: [],
             summary: 'user id',
-            parameters: [
-                name: "id'
-                schema:
-                type: "string"
-                format: "uuid"
-            ]
-            requestedBody: {
-                description: 'modify'
-                content:'application/json':
-                schema:
-                type: 'object'
-                properties:{
-                    name: {type: "string"},
-                    code: {
-                        type: "string"
-                        maxLength: 2
-                    }
+            parameters: [{
+                name: 'id',
+                schema: {
+                    type: 'string',
+                    format: 'uuid'
                 }
-            }
-            responses: {
-                200: description: 'login success',
-                content: {
-                    'application/json': {
-                        schema: {
-                            type: 'object',
-                            properties: {
-                                country: {
-                                    type: 'array',
-                                    items: {
-                                        type: 'object',
-                                        properties: {
-                                            id: {
-                                                type: 'string',
-                                                format: 'uuid'
-                                            },
-                                            name: {type: 'string'}
-                                        }
-                                    }
-                                }
-                            }
+            }],
+            requestedBody: {
+                description: 'modify',
+                content:'application/json',
+                schema:{
+                    type: 'object',
+                    properties:{
+                        name: {type: 'string'},
+                        code: {
+                            type: 'string',
+                            maxLength: 2
                         }
                     }
                 }
             },
+            responses: {
+                200: {
+                    description: 'login success',
+                    content: {
+                        'application/json': {
+                            schema: {
+                                type: 'object',
+                                properties: {
+                                    type: 'string',
+                                    format: 'binary'
+                                }
+                            }
+                        }
+                    }
+                },
                 default: {
                     description: 'Error',
                     content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                 }
+
             }
         }
     }
