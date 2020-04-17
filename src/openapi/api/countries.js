@@ -37,6 +37,46 @@ module.exports = {
                     content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                 }
             }
+        },
+
+        post: {
+            security: [],
+            summary: 'crate country',
+            requestedBody: {
+                description: 'new country',
+                content:'application/json',
+                schema:{
+                    type: 'object',
+                    properties:{
+                        name: {type: 'string'},
+                        code: {
+                            type: 'string',
+                            maxLength: 2
+                        }
+                    }
+                }
+            },
+            responses: {
+                200: {
+                    description: 'login success',
+                    content: {
+                        'application/json': {
+                            schema: {
+                                type: 'object',
+                                properties: {
+                                    type: 'string',
+                                    format: 'binary'
+                                }
+                            }
+                        }
+                    }
+                },
+                default: {
+                    description: 'Error',
+                    content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
+                }
+
+            }
         }
     },
 
@@ -85,6 +125,71 @@ module.exports = {
                     content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
                 }
 
+            }
+        },
+
+        delete: {
+            security: [],
+            summary: 'user id',
+            parameters: [{
+                name: 'id',
+                schema: {
+                    type: 'string',
+                    format: 'uuid'
+                }
+            }],
+            responses: {
+                200: {
+                    description: 'login success',
+                    content: {
+                        'application/json': {
+                            schema: {
+                                type: 'object',
+                                properties: {
+                                    type: 'string',
+                                    format: 'binary'
+                                }
+                            }
+                        }
+                    }
+                },
+                default: {
+                    description: 'Error',
+                    content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
+                }
+
+            }
+        },
+
+        get: {
+            security: [],
+            summary: 'user id',
+            parameters: [{
+                name: 'id',
+                schema: {
+                    type: 'string',
+                    format: 'uuid'
+                }
+            }],
+            responses: {
+                200:{
+                    description: 'modify',
+                    content:'application/json',
+                    schema:{
+                        type: 'object',
+                        properties:{
+                            name: {type: 'string'},
+                            code: {
+                                type: 'string',
+                                maxLength: 2
+                            }
+                        }
+                    }
+                },
+                default: {
+                    description: 'Error',
+                    content: {'application/json': {schema: {$ref: '#/components/schemas/Error'}}}
+                }
             }
         }
     }
