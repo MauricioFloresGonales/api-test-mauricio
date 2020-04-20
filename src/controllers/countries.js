@@ -48,9 +48,9 @@ class CountriesController {
 
             console.log(result);
 
-            if(!result){
+            /*if(!result){
                 res.status(404).send({code: 'CONTRIE_NOT_FOUND'});
-            }
+            }*/
 
             res.send({
                 success: true,

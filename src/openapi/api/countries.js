@@ -42,7 +42,20 @@ module.exports = {
         post: {
             security: [],
             summary: 'crate country',
-            requestedBody: {
+            //consumes: 'application/json',
+            parameters: {
+                requestedBody:{
+                    description: 'new country',
+                    schema:{
+                        type: 'object',
+                        properties:{
+                            Name: {type: 'string'},
+                            acronym:{type: 'string'}
+                        }
+                    }
+                }
+            }
+            /*{
                 description: 'new country',
                 content:'application/json',
                 schema:{
@@ -55,7 +68,7 @@ module.exports = {
                         }
                     }
                 }
-            },
+            }*/,
             responses: {
                 200: {
                     description: 'login success',
@@ -86,6 +99,7 @@ module.exports = {
             summary: 'user id',
             parameters: [{
                 name: 'id',
+                in: 'path',
                 schema: {
                     type: 'string',
                     format: 'uuid'
@@ -173,7 +187,7 @@ module.exports = {
             }],
             responses: {
                 200:{
-                    description: 'modify',
+                    description: 'one countrie',
                     content:'application/json',
                     schema:{
                         type: 'object',
