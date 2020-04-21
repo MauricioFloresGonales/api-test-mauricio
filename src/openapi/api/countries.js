@@ -42,33 +42,23 @@ module.exports = {
         post: {
             security: [],
             summary: 'crate country',
-            //consumes: 'application/json',
-            parameters: {
-                requestedBody:{
-                    description: 'new country',
-                    schema:{
-                        type: 'object',
-                        properties:{
-                            Name: {type: 'string'},
-                            acronym:{type: 'string'}
-                        }
-                    }
-                }
-            }
-            /*{
+            requestedBody:{
                 description: 'new country',
-                content:'application/json',
-                schema:{
-                    type: 'object',
-                    properties:{
-                        name: {type: 'string'},
-                        code: {
-                            type: 'string',
-                            maxLength: 2
+                content: {
+                    'application/json':{
+                        schema:{
+                            type: 'object',
+                            properties:{
+                                Name: {type: 'string'},
+                                code: {
+                                    type: 'string',
+                                    maxLength: 2
+                                }
+                            }
                         }
                     }
                 }
-            }*/,
+            },
             responses: {
                 200: {
                     description: 'login success',
@@ -76,10 +66,7 @@ module.exports = {
                         'application/json': {
                             schema: {
                                 type: 'object',
-                                properties: {
-                                    type: 'string',
-                                    format: 'binary'
-                                }
+                                properties: {}
                             }
                         }
                     }
@@ -100,6 +87,7 @@ module.exports = {
             parameters: [{
                 name: 'id',
                 in: 'path',
+                required: true,
                 schema: {
                     type: 'string',
                     format: 'uuid'
@@ -107,16 +95,20 @@ module.exports = {
             }],
             requestedBody: {
                 description: 'modify',
-                content:'application/json',
-                schema:{
-                    type: 'object',
-                    properties:{
-                        name: {type: 'string'},
-                        code: {
-                            type: 'string',
-                            maxLength: 2
+                content:{
+                    'application/json':{
+                        schema:{
+                            type: 'object',
+                            properties:{
+                                name: {type: 'string'},
+                                code: {
+                                    type: 'string',
+                                    maxLength: 2
+                                }
+                            }
                         }
                     }
+
                 }
             },
             responses: {
@@ -126,10 +118,7 @@ module.exports = {
                         'application/json': {
                             schema: {
                                 type: 'object',
-                                properties: {
-                                    type: 'string',
-                                    format: 'binary'
-                                }
+                                properties: {}
                             }
                         }
                     }
@@ -147,6 +136,8 @@ module.exports = {
             summary: 'user id',
             parameters: [{
                 name: 'id',
+                in: 'path',
+                required: true,
                 schema: {
                     type: 'string',
                     format: 'uuid'
@@ -159,10 +150,7 @@ module.exports = {
                         'application/json': {
                             schema: {
                                 type: 'object',
-                                properties: {
-                                    type: 'string',
-                                    format: 'binary'
-                                }
+                                properties: {}
                             }
                         }
                     }
@@ -180,6 +168,8 @@ module.exports = {
             summary: 'user id',
             parameters: [{
                 name: 'id',
+                in: 'path',
+                required: true,
                 schema: {
                     type: 'string',
                     format: 'uuid'
@@ -188,14 +178,11 @@ module.exports = {
             responses: {
                 200:{
                     description: 'one countrie',
-                    content:'application/json',
-                    schema:{
-                        type: 'object',
-                        properties:{
-                            name: {type: 'string'},
-                            code: {
-                                type: 'string',
-                                maxLength: 2
+                    content:{
+                        'application/json':{
+                            schema:{
+                                type: 'object',
+                                properties:{}
                             }
                         }
                     }
