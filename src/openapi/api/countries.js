@@ -4,6 +4,17 @@ module.exports = {
         get: {
             security: [],
             summary: 'List Countries',
+            parameters: [
+                {
+                    in: 'query',
+                    name: 'code',
+                    schema: {
+                        type: 'string',
+                        pattern: '^[A-Z]{2}$'
+                    },
+                    description: 'codigo del pais solicitado'
+                }
+            ],
             responses: {
                 200: {
                     description: 'login success',
@@ -14,16 +25,7 @@ module.exports = {
                                 properties: {
                                     countries: {
                                         type: 'array',
-                                        items: {
-                                            type: 'object',
-                                            properties: {
-                                                id: {
-                                                    type: 'string',
-                                                    format: 'uuid'
-                                                },
-                                                name: {type: 'string'}
-                                            }
-                                        }
+                                        items: {$ref: '#/components/schemas/Country'}
                                     },
                                     total: {type: 'integer'},
                                     limit: {type: 'integer'}
@@ -42,22 +44,9 @@ module.exports = {
         post: {
             security: [],
             summary: 'crate country',
-            requestedBody:{
+            requestBody:{
                 description: 'new country',
-                content: {
-                    'application/json':{
-                        schema:{
-                            type: 'object',
-                            properties:{
-                                Name: {type: 'string'},
-                                code: {
-                                    type: 'string',
-                                    maxLength: 2
-                                }
-                            }
-                        }
-                    }
-                }
+                content: {'application/json': {schema: {$ref: '#/components/schemas/Country'}}}
             },
             responses: {
                 200: {
@@ -84,32 +73,10 @@ module.exports = {
         put: {
             security: [],
             summary: 'user id',
-            parameters: [{
-                name: 'id',
-                in: 'path',
-                required: true,
-                schema: {
-                    type: 'string',
-                    format: 'uuid'
-                }
-            }],
-            requestedBody: {
+            parameters: [{$ref: '#/components/parameters/Path'}],
+            requestBody: {
                 description: 'modify',
-                content:{
-                    'application/json':{
-                        schema:{
-                            type: 'object',
-                            properties:{
-                                name: {type: 'string'},
-                                code: {
-                                    type: 'string',
-                                    maxLength: 2
-                                }
-                            }
-                        }
-                    }
-
-                }
+                content: {'application/json': {schema: {$ref: '#/components/schemas/Country'}}}
             },
             responses: {
                 200: {
@@ -134,15 +101,7 @@ module.exports = {
         delete: {
             security: [],
             summary: 'user id',
-            parameters: [{
-                name: 'id',
-                in: 'path',
-                required: true,
-                schema: {
-                    type: 'string',
-                    format: 'uuid'
-                }
-            }],
+            parameters: [{$ref: '#/components/parameters/Path'}],
             responses: {
                 200: {
                     description: 'login success',
@@ -166,15 +125,7 @@ module.exports = {
         get: {
             security: [],
             summary: 'user id',
-            parameters: [{
-                name: 'id',
-                in: 'path',
-                required: true,
-                schema: {
-                    type: 'string',
-                    format: 'uuid'
-                }
-            }],
+            parameters: [{$ref: '#/components/parameters/Path'}],
             responses: {
                 200:{
                     description: 'one countrie',

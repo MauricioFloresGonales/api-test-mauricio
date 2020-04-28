@@ -88,6 +88,21 @@ module.exports = {
                 }
             }
         },
+        Country: {
+            type: 'object',
+            properties:{
+                id: {
+                    type: 'string',
+                    format: 'uuid',
+                    nullable: true //puede venir el dato o no va a funcionar si o si
+                },
+                name: {type: 'string'},
+                code: {
+                    type: 'string',
+                    maxLength: 2
+                }
+            }
+        },
         Error: {//tema de errores
             type: 'object',
             required: [
@@ -101,6 +116,18 @@ module.exports = {
                 },
                 message: {type: 'string'}
             }
+        }
+    },
+    parameters:{
+        Path: {
+            name: 'id',
+            in: 'query',
+            required: true,
+            schema: {
+                type: 'string',
+                format: 'uuid'
+            },
+            description: 'ID del pais solicitado'
         }
     },
     securitySchemes: {
